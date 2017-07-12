@@ -207,6 +207,13 @@ class Smooch_Admin {
 			$this->plugin_name,
 			$this->plugin_name . '-basic-info'
 		);
+		add_settings_field(
+			'business-hours',
+			apply_filters( $this->plugin_name . '-business-hours-label', __( 'Business Hours', 'smooch-wordpress' ) ),
+			array( $this, 'business_hours_field' ),
+			$this->plugin_name,
+			$this->plugin_name . '-basic-info'
+		);		
 	} // register_settings()
 
 	/**
@@ -336,6 +343,30 @@ class Smooch_Admin {
 		?><input type="text" id="<?php echo $this->plugin_name; ?>-options[intro-app-text]" name="<?php echo $this->plugin_name; ?>-options[intro-app-text]" value="<?php echo esc_attr( $option ); ?>"><?php
 
 	} // display_options_field()
+
+
+
+
+	/**
+	 * Creates a settings field
+	 *
+	 * @since 		1.1.3
+	 * @return 		mixed 			The settings field
+	 */
+	public function business_hours_field() {
+
+		$options 	= get_option( $this->plugin_name . '-options' );
+		$option 	= '1';
+
+		if ( ! empty( $options['business-hours'] ) ) {
+			$option = $options['business-hours'];
+		}
+
+		?><input type="text" id="<?php echo $this->plugin_name; ?>-options[business-hours]" name="<?php echo $this->plugin_name; ?>-options[business-hours]" value="<?php echo esc_attr( $option ); ?>"><?php
+
+	} // display_options_field()
+
+
 
 	/**
 	 * Validates saved options

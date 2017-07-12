@@ -47,7 +47,7 @@ class Smooch_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -73,7 +73,7 @@ class Smooch_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/smooch-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/smooch-public.css', array(), $this->version, 'all');
 
 	}
 
@@ -106,7 +106,7 @@ class Smooch_Public {
 		global $current_user;
 
 		/*
-		Getting user data logged
+			Getting user data logged
 		*/
 
 		get_currentuserinfo();
@@ -126,7 +126,7 @@ class Smooch_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$options = get_option( $this->plugin_name . '-options' );	?>
+		$options = get_option($this->plugin_name . '-options');?>
 		<!-- SK Init -->
 		<script>
 		var decodeEntities = (function() {
@@ -149,26 +149,36 @@ class Smooch_Public {
 		  return decodeHTMLEntities;
 		})();
 
-        function loadScript(src, callback) { var s, r, t; r = false; s = document.createElement('script'); s.type = 'text/javascript'; s.src = src; s.onload = s.onreadystatechange = function() { if ( !r && (!this.readyState || this.readyState == 'complete') ) { r = true; callback(); } }; t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t); }
-        loadScript('https://cdn.smooch.io/smooch.min.js', function() {
-    		Smooch.init(
-    			{
-						appToken: decodeEntities('<?php echo(htmlentities($options['app-token'], ENT_QUOTES));?>'),
-						givenName: decodeEntities('<?php echo(htmlentities($givenName, ENT_QUOTES));?>'),
-		    			surname: decodeEntities('<?php echo(htmlentities($surname, ENT_QUOTES));?>'),
-		    			email: decodeEntities('<?php echo(htmlentities($email, ENT_QUOTES));?>'),
-		    			emailCaptureEnabled: true,
-					    customText: {
-		        			headerText: decodeEntities('<?php echo(htmlentities($options['header-text'], ENT_QUOTES));?>'),
-		        			inputPlaceholder: decodeEntities('<?php echo(htmlentities($options['input-placeholder'], ENT_QUOTES));?>'),
-		        			sendButtonText: decodeEntities('<?php echo(htmlentities($options['send-button-text'], ENT_QUOTES));?>'),
-		        			introductionText: decodeEntities('<?php echo(htmlentities($options['intro-text'], ENT_QUOTES));?>'),
-									introAppText: decodeEntities('<?php echo(htmlentities($options['intro-app-text'], ENT_QUOTES));?>')
-		    			}
-    			});
-        });
+		var businessHours = decodeEntities('<?php echo (htmlentities($options['business-hours'], ENT_QUOTES)); ?>');
+
+		if (!businessHours) {
+
+			return;
+
+		} else {
+
+	        function loadScript(src, callback) { var s, r, t; r = false; s = document.createElement('script'); s.type = 'text/javascript'; s.src = src; s.onload = s.onreadystatechange = function() {  if ( !r && (!this.readyState || this.readyState == 'complete') ) { r = true; callback(); } }; t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t); }
+
+	        loadScript('https://cdn.smooch.io/smooch.min.js', function() {
+	    		Smooch.init( 
+	    			{
+							appToken: decodeEntities('<?php echo (htmlentities($options['app-token'], ENT_QUOTES)); ?>'),
+							givenName: decodeEntities('<?php echo (htmlentities($givenName, ENT_QUOTES)); ?>'),
+			    			surname: decodeEntities('<?php echo (htmlentities($surname, ENT_QUOTES)); ?>'),
+			    			email: decodeEntities('<?php echo (htmlentities($email, ENT_QUOTES)); ?>'),
+			    			emailCaptureEnabled: true,
+						    customText: {
+			        			headerText: decodeEntities('<?php echo (htmlentities($options['header-text'], ENT_QUOTES)); ?>'),
+			        			inputPlaceholder: decodeEntities('<?php echo (htmlentities($options['input-placeholder'], ENT_QUOTES)); ?>'),
+			        			sendButtonText: decodeEntities('<?php echo (htmlentities($options['send-button-text'], ENT_QUOTES)); ?>'),
+			        			introductionText: decodeEntities('<?php echo (htmlentities($options['intro-text'], ENT_QUOTES)); ?>'),
+										introAppText: decodeEntities('<?php echo (htmlentities($options['intro-app-text'], ENT_QUOTES)); ?>')
+			    			}
+	    			});
+	        });
+        }
 		</script>
 
 		<?php
-	}
+}
 }
