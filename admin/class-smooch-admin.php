@@ -73,7 +73,7 @@ class Smooch_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/smooch-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/smooch-admin.css', array('jquery-ui'), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class Smooch_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/smooch-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/smooch-admin.js', array( 'jquery','jquery-ui-datepicker' ), $this->version, false );
 
 	}
 
@@ -362,7 +362,7 @@ class Smooch_Admin {
 			$option = $options['business-hours'];
 		}
 
-		?><input type="text" id="<?php echo $this->plugin_name; ?>-options[business-hours]" name="<?php echo $this->plugin_name; ?>-options[business-hours]" value="<?php echo esc_attr( $option ); ?>"><?php
+		?><input type="date" id="<?php echo $this->plugin_name; ?>-options[business-hours]" name="<?php echo $this->plugin_name; ?>-options[business-hours]" value="<?php echo esc_attr( $option ); ?>"><?php
 
 	} // display_options_field()
 
