@@ -151,11 +151,16 @@ class Smooch_Public {
 
 		var businessHours = decodeEntities('<?php echo (htmlentities($options['business-hours'], ENT_QUOTES)); ?>');
 
-		if (!businessHours) {
 
-			return;
+		console.log('businessHours: ' + businessHours);
+
+		if (businessHours > 1) {
+
+			
 
 		} else {
+
+
 
 	        function loadScript(src, callback) { var s, r, t; r = false; s = document.createElement('script'); s.type = 'text/javascript'; s.src = src; s.onload = s.onreadystatechange = function() {  if ( !r && (!this.readyState || this.readyState == 'complete') ) { r = true; callback(); } }; t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t); }
 

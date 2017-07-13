@@ -356,7 +356,7 @@ class Smooch_Admin {
 	public function business_hours_field() {
 
 		$options 	= get_option( $this->plugin_name . '-options' );
-		$option 	= '1';
+		$option 	= '';
 
 		if ( ! empty( $options['business-hours'] ) ) {
 			$option = $options['business-hours'];
@@ -430,6 +430,15 @@ class Smooch_Admin {
 
 			if ( $valid['intro-app-text'] != $input['intro-app-text'] ) {
 				add_settings_error( 'intro-app-text', 'intro-app-text-error', __( 'Intro App text error.', 'smooch-wordpress' ), 'error' );
+			}
+		}
+
+		if ( isset( $input['business-hours'] ) ) {
+			$app_token 			= trim( $input['business-hours'] );
+			$valid['business-hours'] 	= sanitize_text_field( $app_token );
+
+			if ( $valid['business-hours'] != $input['business-hours'] ) {
+				add_settings_error( 'business-hours', 'business-hours-error', __( 'Business Hours error.', 'smooch-wordpress' ), 'error' );
 			}
 		}
 
